@@ -41,7 +41,7 @@
 				</h1>
 				<!-- Navbar links -->
 				<ul class="nav-menu">
-					<li><a class="nav-link" href="#projects">ПРОЕКТЫ</a></li>
+					<li><a class="nav-link" href="/#projects">ПРОЕКТЫ</a></li>
 					<li><a class="nav-link" href="/pages/contacts.html">КОНТАКТЫ</a></li>
 					<li><a class="nav-link" href="/pages/blog.html">БЛОГ</a></li>
 					<li>
@@ -74,6 +74,28 @@
 			<h1>Мои контакты</h1>
 		</section>
 	</header>
+
+	<section id="contact" class="contact-section">
+		<div class="container contact-grid">
+			<div class="contact-info">
+				<h2>Свяжитесь со мной</h2>
+				<p>Буду рад сотрудничеству и новым проектам. Напишите сообщение — отвечу в ближайшее время.</p>
+				<ul class="contact-list">
+					<li><i class="fas fa-envelope"></i> <a href="mailto:example@gmail.com">example@gmail.com</a></li>
+					<li><i class="fab fa-github"></i> <a href="https://github.com/418ert" target="_blank">github.com/418ert</a></li>
+				</ul>
+			</div>
+
+			<form class="contact-form" action="mailto:example@gmail.com" method="post" enctype="text/plain">
+				<div class="form-row">
+					<input type="text" name="name" placeholder="Ваше имя" required />
+					<input type="email" name="email" placeholder="Email" required />
+				</div>
+				<textarea name="message" rows="6" placeholder="Сообщение" required></textarea>
+				<button class="btn btn-primary" type="submit">Отправить</button>
+			</form>
+		</div>
+	</section>
 
 	<footer id="footer">
 		<div class="container">
