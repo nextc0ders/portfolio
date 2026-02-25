@@ -15,6 +15,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	// вызываем функции для загрузки компонентов
-	loadComponent('../components/header/header.html', 'header');
-	loadComponent('../components/footer/footer.html', 'footer');
+	loadComponent('../components/header/header.html', 'header', () => {
+		// header потребует навешивания слушателей
+		if (window.initPage) window.initPage();
+	});
+	loadComponent('../components/footer/footer.html', 'footer', () => {
+		// footer не зависит от JS на данный момент
+	});
 })

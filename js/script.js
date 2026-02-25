@@ -1,67 +1,65 @@
-const hamburger = document.querySelector(".hamburger");
-const navMenu = document.querySelector(".nav-menu");
+// We'll initialize interactive pieces after the header/footer are inserted
+function initPage() {
+  // hamburger/mobile menu
+  const hamburger = document.querySelector(".hamburger");
+  const navMenu = document.querySelector(".nav-menu");
 
-hamburger.addEventListener("click", mobileMenu);
+  if (hamburger && navMenu) {
+    hamburger.addEventListener("click", mobileMenu);
 
-function mobileMenu() {
-  hamburger.classList.toggle("active");
-  navMenu.classList.toggle("active");
-}
+    function mobileMenu() {
+      hamburger.classList.toggle("active");
+      navMenu.classList.toggle("active");
+    }
 
-// Close navbar when link is clicked
-const navLink = document.querySelectorAll(".nav-link");
+    // Close navbar when link is clicked
+    const navLink = document.querySelectorAll(".nav-link");
+    navLink.forEach((n) => n.addEventListener("click", closeMenu));
 
-navLink.forEach((n) => n.addEventListener("click", closeMenu));
+    function closeMenu() {
+      hamburger.classList.remove("active");
+      navMenu.classList.remove("active");
+    }
+  }
 
-function closeMenu() {
-  hamburger.classList.remove("active");
-  navMenu.classList.remove("active");
-}
+  // theme switcher
+  const toggleSwitch = document.querySelector(
+    '.theme-switch input[type="checkbox"]'
+  );
 
-// Event Listeners: Handling toggle event
-const toggleSwitch = document.querySelector(
-  '.theme-switch input[type="checkbox"]'
-);
+  function switchTheme(e) {
+    if (e.target.checked) {
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+      localStorage.setItem("theme", "light");
+    }
+  }
 
-function switchTheme(e) {
-  if (e.target.checked) {
-    document.documentElement.setAttribute("data-theme", "dark");
-  } else {
-    document.documentElement.setAttribute("data-theme", "light");
+  if (toggleSwitch) {
+    toggleSwitch.addEventListener("change", switchTheme, false);
+
+    // apply stored theme
+    const currentTheme = localStorage.getItem("theme");
+    if (currentTheme) {
+      document.documentElement.setAttribute("data-theme", currentTheme);
+      if (currentTheme === "dark") {
+        toggleSwitch.checked = true;
+      }
+    }
+  }
+
+  //Adding date
+  const myDate = document.querySelector("#datee");
+  if (myDate) {
+    const yes = new Date().getFullYear();
+    myDate.innerHTML = yes;
   }
 }
 
-toggleSwitch.addEventListener("change", switchTheme, false);
+// call on DOMContentLoaded in case components are already present
+document.addEventListener("DOMContentLoaded", initPage);
 
-//  Store color theme for future visits
-
-function switchTheme(e) {
-  if (e.target.checked) {
-    document.documentElement.setAttribute("data-theme", "dark");
-    localStorage.setItem("theme", "dark"); //add this
-  } else {
-    document.documentElement.setAttribute("data-theme", "light");
-    localStorage.setItem("theme", "light"); //add this
-  }
-}
-
-// Save user preference on load
-
-const currentTheme = localStorage.getItem("theme")
-  ? localStorage.getItem("theme")
-  : null;
-
-if (currentTheme) {
-  document.documentElement.setAttribute("data-theme", currentTheme);
-
-  if (currentTheme === "dark") {
-    toggleSwitch.checked = true;
-  }
-}
-
-//Adding date
-
-let myDate = document.querySelector("#datee");
-
-const yes = new Date().getFullYear();
-myDate.innerHTML = yes;
+// expose the initializer so import.js can invoke it later
+window.initPage = initPage;
